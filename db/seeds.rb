@@ -1,0 +1,35 @@
+account = Account.create(name: 'Dragon Ball', password: 'password', password_confirmation: 'password', email: 'account@example.com')
+player1 = account.players.create(name: 'Goku')
+player2 = account.players.create(name: 'Trunks')
+player3 = account.players.create(name: 'Vageta')
+player4 = account.players.create(name: 'Piccolo')
+
+puts "#{player1.id} #{player2.id} #{player3.id} #{player4.id}"
+
+game = player1.games.create(server_id: player1.id)
+
+player2.participants.create(game_id: game.id)
+
+game.points.create(player_id: player1)
+game.points.create(player_id: player1)
+game.points.create(player_id: player2)
+game.points.create(player_id: player2)
+game.points.create(player_id: player2)
+game.points.create(player_id: player2)
+game.points.create(player_id: player1)
+game.points.create(player_id: player2)
+game.points.create(player_id: player1)
+game.points.create(player_id: player1)
+game.points.create(player_id: player2)
+game.points.create(player_id: player2)
+game.points.create(player_id: player1)
+game.points.create(player_id: player1)
+game.points.create(player_id: player1)
+game.points.create(player_id: player2)
+game.points.create(player_id: player1)
+game.points.create(player_id: player2)
+game.points.create(player_id: player2)
+game.points.create(player_id: player2)
+
+player1.participants.find_by(game_id: game.id).update(score: -1)
+player2.participants.find_by(game_id: game.id).update(score: 1)
