@@ -1,4 +1,4 @@
-class Api::V1::AccountsController < Api::V1::BaseController
+class Api::AccountsController < Api::BaseController
   def auth
     @account = current_account
     render json: { account: @account }, status: 200

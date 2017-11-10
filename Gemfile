@@ -13,6 +13,7 @@ gem 'knock', '~> 1.2'
 gem 'jwt', '~> 1.5', '>= 1.5.4'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
+gem 'yajl-ruby', '~> 1.2', '>= 1.2.1'
 
 group :development, :test do
   gem 'pry'
