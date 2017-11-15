@@ -7,10 +7,10 @@ class Api::PlayersController < Api::BaseController
   def create
     @player = current_account.players.new(player_params)
     if @player.save
-      # render jbuilder
     else
       render json: { error: 'error' }, status: 401
     end
+    # render jbuilder
   end
 
   private

@@ -26,6 +26,9 @@ ActiveRecord::Schema.define(version: 20171020213259) do
   create_table "games", force: :cascade do |t|
     t.boolean "deuce", default: false
     t.bigint "server_id"
+    t.bigint "receiver_id"
+    t.bigint "account_id"
+    t.index ["account_id"], name: "index_games_on_account_id"
   end
 
   create_table "participants", force: :cascade do |t|

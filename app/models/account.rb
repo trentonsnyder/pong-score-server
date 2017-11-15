@@ -2,6 +2,7 @@ class Account < ApplicationRecord
   has_secure_password
 
   has_many :players
+  has_many :games
 
   validates :email,
     uniqueness: true,

@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   namespace :api do
     get 'accounts/auth', to: 'accounts#auth'
     resources :players, only: [:index, :create]
-    resources :games, only: [:create]
+    resources :games, only: [:create, :show]
   end
 end

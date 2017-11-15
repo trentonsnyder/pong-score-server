@@ -22,6 +22,8 @@ class DbSetup < ActiveRecord::Migration[5.1]
     create_table :games do |t|
       t.boolean :deuce, default: false
       t.bigint :server_id, foreign_key: true
+      t.bigint :receiver_id, foreign_key: true
+      t.belongs_to :account, index: true
     end
 
     create_table :points do |t|
