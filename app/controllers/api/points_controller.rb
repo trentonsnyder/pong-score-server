@@ -3,8 +3,10 @@ class Api::PointsController < Api::BaseController
 
   def create
     @player = current_account.players.find(params[:player_id])
-    @point = @game.points.new(player_id: @player.id, deuce: params[:deuce])
+    @point = @game.points.new(player_id: @player.id)
     if @point.save
+      @game.check_deuce
+      @point.update(deuce: @game.deuce)
     else
       render json: { error: 'error' }, status: 401
     end
@@ -12,17 +14,19 @@ class Api::PointsController < Api::BaseController
   end
 
   def undo
-    point_id = @game.points.last.id
+    @point = @game.points.last
+    point_id = @point.id
     if @point.destroy
-      render json: { point: { id: point_id } }, status: 200
+      @game.check_deuce
+      render json: { point: { id: point_id }, game: @game }, status: 200
     else
       render json: { 'error': error }, status: 401
     end
   end
 
-  private
+private
 
-  def set_game
+def set_game
     @game = current_account.games.find(params[:game_id])
   end
 end
