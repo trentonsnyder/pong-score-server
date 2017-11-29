@@ -31,4 +31,29 @@ class Game < ApplicationRecord
     end
   end
 
+  def assignScores
+    points = self.points
+    if points.length >= 11
+      p1_points = points.select { |p| p.player_id == points.first.id}
+      p2_points = points.select { |p| p.player_id != points.first.id}
+      if (p1_points.length >= 11 || p2_points.length >= 11) && ((p1_points.length - p2_points.length).abs >= 2)
+        if p1_points.length > p2_points.length
+          p1 = self.participants.find_by(player_id: p1_points.first.player_id)
+          p2 = self.participants.where.not(player_id: p1.player_id).first
+          p1.update(score: 1)
+          p2.update(score: -1)
+        else
+          p2 = self.participants.find_by(player_id: p2_points.first.player_id)
+          p1 = self.participants.where.not(player_id: p2.player_id).first
+          p2.update(score: 1)
+          p1.update(score: -1)
+        end
+      else
+        return false
+      end
+    else
+      return false
+    end
+  end
+
 end

@@ -18,6 +18,7 @@ class Api::PointsController < Api::BaseController
     point_id = @point.id
     if @point.destroy
       @game.check_deuce
+      # @game.participants.each { |p| p.update(score: 0) }
       render json: { point: { id: point_id }, game: @game }, status: 200
     else
       render json: { 'error': error }, status: 401

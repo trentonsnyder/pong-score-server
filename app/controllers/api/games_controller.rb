@@ -1,5 +1,10 @@
 class Api::GamesController < Api::BaseController
 
+  def index
+    @games = current_account.games.order('id DESC')
+    # render jbuilder
+  end
+
   def create
     p1 = current_account.players.find(params[:player1])
     p2 = current_account.players.find(params[:player2])
@@ -11,6 +16,14 @@ class Api::GamesController < Api::BaseController
       render json: { error: 'error' }, status: 401
     end
     # render jbuilder
+  end
+
+  def finish
+    @game = current_account.games.find(params[:id])
+    if @game.assignScores
+    else
+      render json: { error: 'invalid scores' }, status: 401
+    end
   end
 
   def show
